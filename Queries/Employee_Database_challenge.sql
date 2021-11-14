@@ -56,3 +56,29 @@ into mentee_titles
 from mentor_eligible
 group by title
 order by count DESC;
+
+------------------------------------------------------------
+-- identify total number of current employees
+--------------------------------------------------------------
+
+select distinct on(e.emp_no) e.emp_no,
+e.first_name,
+e.last_name,
+e.birth_date,
+de.from_date,
+de.to_date,
+t.title
+into current_employee
+from employees as e
+left join dept_emp as de on (e.emp_no= de.emp_no)
+left join titles as t on (e.emp_no=t.emp_no)
+where (de.to_date='9999-01-01')
+ORDER BY e.emp_no, t.to_date DESC;
+
+
+select  count(title), title
+into current_titles
+from current_employee
+group by title
+order by count DESC;
+
