@@ -51,3 +51,8 @@ where (de.to_date='9999-01-01') and (e.birth_date BETWEEN '1965-01-01' AND '1965
 ORDER BY e.emp_no, t.to_date DESC
 
 
+select  count(title), title
+into mentee_titles
+from mentor_eligible
+group by title
+order by count DESC;
